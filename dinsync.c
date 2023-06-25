@@ -1,5 +1,5 @@
-/* 
- * The software for the x0xb0x is available for use in accordance with the 
+/*
+ * The software for the x0xb0x is available for use in accordance with the
  * following open source license (MIT License). For more information about
  * OS licensing, please visit -> http://www.opensource.org/
  *
@@ -9,22 +9,22 @@
  *                                     *****
  * Copyright (c) 2005 Limor Fried
  *
- * Permission is hereby granted, free of charge, to any person obtaining a 
- * copy of this software and associated documentation files (the "Software"), 
- * to deal in the Software without restriction, including without limitation 
- * the rights to use, copy, modify, merge, publish, distribute, sublicense, 
- * and/or sell copies of the Software, and to permit persons to whom the 
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
  * Software is furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in 
+ * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  *                                     *****
  *
@@ -37,20 +37,17 @@
 #include "delay.h"
 
 // counter: counts up DINSYNC_PPM per beat, for dinsync out
-uint8_t		dinsync_counter = 0;
-uint8_t		swing_counter = 0;
-
-
-
+uint8_t dinsync_counter = 0;
+uint8_t swing_counter = 0;
 
 /* output functions (dinsync_start/stop) start and stop dinsync
    that is clocked from the internal tempo function */
 void dinsync_start(void)
 {
 	// make sure we're not in a "dinsync in" mode
-	if(sync != DIN_SYNC)
+	if (sync != DIN_SYNC)
 	{
-		TCNT3 = OCR3A-delay_clock9ms; // next clock in 9ms; 
+		TCNT3 = OCR3A - delay_clock9ms; // next clock in 9ms;
 		// set the clock low (rising edge is a clock)
 		cbi(DINSYNC_DATA, DINSYNC_CLK);
 		// send start signal
@@ -65,11 +62,11 @@ void dinsync_start(void)
 void dinsync_stop(void)
 {
 #ifdef SYNC_OUT
-	if(sync != DIN_SYNC)
-	{	// make sure we're not input mode
-		cbi(DINSYNC_DATA, DINSYNC_START);	// easy, just set Start low.
+	if (sync != DIN_SYNC)
+	{									  // make sure we're not input mode
+		cbi(DINSYNC_DATA, DINSYNC_START); // easy, just set Start low.
 	}
-#endif 
+#endif
 }
 
 /* input functions are for keeping track of whether an event occured
@@ -81,11 +78,11 @@ void dinsync_stop(void)
 uint8_t dinsync_started(void)
 {
 	// keep track of the dinsync pin states for dinsync in
-	static uint8_t	last_dinsync_start;
+	static uint8_t last_dinsync_start;
 	uint8_t curr_dinsync_s;
-	curr_dinsync_s = DINSYNC_PINS & (1<< DINSYNC_START);
+	curr_dinsync_s = DINSYNC_PINS & (1 << DINSYNC_START);
 
-	if(!last_dinsync_start && curr_dinsync_s)
+	if (!last_dinsync_start && curr_dinsync_s)
 	{
 		last_dinsync_start = curr_dinsync_s;
 		return TRUE;
@@ -102,9 +99,9 @@ uint8_t dinsync_stopped(void)
 {
 	static uint8_t last_dinsync_stop;
 	uint8_t curr_dinsync_s;
-	curr_dinsync_s = DINSYNC_PINS & (1<<DINSYNC_START);
+	curr_dinsync_s = DINSYNC_PINS & (1 << DINSYNC_START);
 
-	if(last_dinsync_stop && !curr_dinsync_s)
+	if (last_dinsync_stop && !curr_dinsync_s)
 	{
 		last_dinsync_stop = curr_dinsync_s;
 		return TRUE;
@@ -119,20 +116,18 @@ uint8_t dinsync_rs(void)
 	static uint8_t last_dinsync;
 	uint8_t curr_dinsync_s;
 
-	curr_dinsync_s = DINSYNC_PINS & (1<<DINSYNC_START);
-	
-	if(curr_dinsync_s!=last_dinsync)
+	curr_dinsync_s = DINSYNC_PINS & (1 << DINSYNC_START);
+
+	if (curr_dinsync_s != last_dinsync)
 	{
-		last_dinsync=curr_dinsync_s;
-		if(curr_dinsync_s)
+		last_dinsync = curr_dinsync_s;
+		if (curr_dinsync_s)
 			return MIDI_START;
 		else
 			return MIDI_STOP;
 	}
-	return 0; 
-	
+	return 0;
 }
-
 
 /* these functions set the input/output descriptors */
 void dinsync_set_out()

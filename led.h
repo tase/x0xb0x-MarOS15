@@ -30,131 +30,124 @@
  *
  */
 
-#define LED_LATCH_PORT	PORTA
-#define LED_LATCH_PIN	7
+#define LED_LATCH_PORT PORTA
+#define LED_LATCH_PIN 7
 
-#define MAX_LED			40
+#define MAX_LED 40
 
 // Byte 0
-#define LED_DONE	0
-#define LED_ACCENT	1
-#define LED_SLIDE	2
-#define LED_UP		3
-#define LED_DOWN	4
-#define LED_BANK14	5
-#define LED_BANK15	6
-#define LED_BANK16	7
+#define LED_DONE 0
+#define LED_ACCENT 1
+#define LED_SLIDE 2
+#define LED_UP 3
+#define LED_DOWN 4
+#define LED_BANK14 5
+#define LED_BANK15 6
+#define LED_BANK16 7
 
 // Byte 1
-#define LED_REST	8
-#define LED_C2		9
-#define LED_B		10
-#define LED_A		11
-#define LED_G		12
-#define LED_AS		13
-#define LED_GS		14
-#define LED_FS		15
-
+#define LED_REST 8
+#define LED_C2 9
+#define LED_B 10
+#define LED_A 11
+#define LED_G 12
+#define LED_AS 13
+#define LED_GS 14
+#define LED_FS 15
 
 // Byte 2
-#define LED_BANK6	16
-#define LED_BANK8	17
-#define LED_BANK7	18
-#define LED_BANK9	19
-#define LED_BANK10	20
-#define LED_BANK11	21
-#define LED_BANK12	22
-#define LED_BANK13	23
+#define LED_BANK6 16
+#define LED_BANK8 17
+#define LED_BANK7 18
+#define LED_BANK9 19
+#define LED_BANK10 20
+#define LED_BANK11 21
+#define LED_BANK12 22
+#define LED_BANK13 23
 
 // Byte 3
-#define LED_F		24
-#define LED_D		25
-#define LED_E		26
-#define LED_CS		27
-#define LED_DS		28
-#define LED_BANK3	29
-#define LED_BANK4	30
-#define LED_BANK5	31
+#define LED_F 24
+#define LED_D 25
+#define LED_E 26
+#define LED_CS 27
+#define LED_DS 28
+#define LED_BANK3 29
+#define LED_BANK4 30
+#define LED_BANK5 31
 
 // Byte 4
-#define LED_C		32
-#define LED_RS		33
-#define LED_CHAIN	34
-#define LED_PREV	35
-#define LED_NEXT	36
-#define LED_TEMPO	37
-#define LED_BANK1	38
-#define LED_BANK2	39
+#define LED_C 32
+#define LED_RS 33
+#define LED_CHAIN 34
+#define LED_PREV 35
+#define LED_NEXT 36
+#define LED_TEMPO 37
+#define LED_BANK1 38
+#define LED_BANK2 39
 
-#define BITBYTE(a) (1<<(a&7))   //no you don't want to know.. nasty bit banging for saving very few code bytes 
+#define BITBYTE(a) (1 << (a & 7)) // no you don't want to know.. nasty bit banging for saving very few code bytes
 
-
-void	clear_led(uint8_t ledno);
-void	set_led(uint8_t ledno);
-void	set_led_blink(uint8_t ledno);
-void	clear_led_blink(uint8_t ledno);
+void clear_led(uint8_t ledno);
+void set_led(uint8_t ledno);
+void set_led_blink(uint8_t ledno);
+void clear_led_blink(uint8_t ledno);
 
 void set_led_dim(uint8_t ledno);
 void clear_led_dim(uint8_t ledno);
 
-//void set_led_dark(uint8_t ledno);
-//void clear_led_dark(uint8_t ledno);
+// void set_led_dark(uint8_t ledno);
+// void clear_led_dark(uint8_t ledno);
 
-//void show_quarter_note_leds(uint8_t triplets);
+// void show_quarter_note_leds(uint8_t triplets);
 
-int		is_led_set(uint8_t ledno);
+int is_led_set(uint8_t ledno);
 uint8_t is_led_blink(uint8_t num);
 
-void	set_bank_led(uint8_t num);
-void	set_bank_led_blink(uint8_t num);
-void	set_bank_leds(uint8_t num);
-void	set_2bank_leds(uint8_t num, uint8_t dim);
+void set_bank_led(uint8_t num);
+void set_bank_led_blink(uint8_t num);
+void set_bank_leds(uint8_t num);
+void set_2bank_leds(uint8_t num, uint8_t dim);
 
-#define clear_bank_leds()	set_bank_leds(255);
+#define clear_bank_leds() set_bank_leds(255);
 
 uint8_t is_bank_led_blink(uint8_t num);
 uint8_t is_bank_led_set(uint8_t num);
 
-void	set_key_led(uint8_t num);
-void	set_keypressed_led(uint8_t key); 
-void	set_key_led_blink(uint8_t num);
-void	clear_key_leds(void);
-void	clear_key_led(uint8_t num);
+void set_key_led(uint8_t num);
+void set_keypressed_led(uint8_t key);
+void set_key_led_blink(uint8_t num);
+void clear_key_leds(void);
+void clear_key_led(uint8_t num);
 
-void	set_numkey_led(uint8_t num);
-void	set_single_numkey_led(uint8_t num);
-void	set_numkey_led_blink(uint8_t num);
-void	clear_numkey_led(uint8_t num);
+void set_numkey_led(uint8_t num);
+void set_single_numkey_led(uint8_t num);
+void set_numkey_led_blink(uint8_t num);
+void clear_numkey_led(uint8_t num);
 uint8_t is_numkey_led_blink(uint8_t num);
 uint8_t is_numkey_led_set(uint8_t num);
 
-void	set_notekey_led(uint8_t note);
-void	set_notekey_leds(uint8_t note);
-void	set_notekey_led_blink(uint8_t num);
-void	clear_notekey_led(uint8_t num);
-
+void set_notekey_led(uint8_t note);
+void set_notekey_leds(uint8_t note);
+void set_notekey_led_blink(uint8_t num);
+void clear_notekey_led(uint8_t num);
 
 uint8_t is_notekey_led_blink(uint8_t num);
 
-void	set_note_led(uint8_t note);
-void	clear_note_leds(void); // All note indicating LEDs, including RAS and UP/DOWN
-void	clear_notekey_leds(void);  // the black & white keys, also used for clearing all NUM-Keys
+void set_note_led(uint8_t note);
+void clear_note_leds(void);    // All note indicating LEDs, including RAS and UP/DOWN
+void clear_notekey_leds(void); // the black & white keys, also used for clearing all NUM-Keys
 
+#define blink_leds_on() (blink_led_on = 1)
+#define blink_leds_off() (blink_led_on = 0)
 
-#define blink_leds_on() (blink_led_on=1)
-#define blink_leds_off() (blink_led_on=0)
+void clear_all_leds(void);
+void clear_blinking_leds(void);
+void clear_dark_leds(void);
 
-void	clear_all_leds(void);
-void	clear_blinking_leds(void);
-void	clear_dark_leds(void);
+void display_octave_shift(int8_t shift);
 
-void	display_octave_shift(int8_t shift);
+void clock_leds(void);
 
-void	clock_leds(void);
-
-
-extern	uint8_t blink_led_on;
-extern	uint8_t dimblink_led_on;
-extern	uint8_t dimblink_led_ctr; 
-
-
+extern uint8_t blink_led_on;
+extern uint8_t dimblink_led_on;
+extern uint8_t dimblink_led_ctr;
